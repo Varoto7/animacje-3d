@@ -1,0 +1,1 @@
+Zrealizowano zadania ze skryptu
