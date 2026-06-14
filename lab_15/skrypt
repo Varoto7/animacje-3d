@@ -1,0 +1,21 @@
+import bpy
+import random
+
+obj = bpy.context.active_object
+
+if obj and obj.active_material:
+    mat = obj.active_material
+    if mat.node_tree:
+        mat.node_tree.animation_data_clear()
+        nodes = mat.node_tree.nodes
+        bsdf = nodes.get("Principled BSDF")
+        
+        if bsdf:
+            for f in range(1, 151, 2):
+                v = random.uniform(10.0, 60.0)
+                if random.random() < 0.15:
+                    v = 0.0
+                bsdf.inputs['Emission Strength'].default_value = v
+                bsdf.inputs['Emission Strength'].keyframe_insert(data_path="default_value", frame=f)
+
+bpy.context.scene.frame_set(1)
